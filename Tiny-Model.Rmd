@@ -25,14 +25,23 @@ In this report, we examine what factors predict a cricket's chirp rate.
 
 ```{r summary, echo = FALSE}
 summary(crickets)
-``` 
+ggplot(crickets, aes(x = rate)) +
+  geom_histogram(bins = 8) + 
+  ggtitle("Distribution of the chirp rate of crickets") +
+  xlab('Chirp rate (per min.)')
+```
 
-## Including Plots
+## Temperature affects chirp rate
 
 You can also embed plots, for example:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r temp, echo= FALSE}
+ggplot(crickets, aes(x = temp, y = rate)) +
+  geom_point() + 
+  geom_smooth(method = 'lm') +
+  ggtitle("Plot of temperature and chirp rate") +
+  ylab('Chirp rate (per min.)') +
+  xlab('Temperature (Celsius)')
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Based on a scatter plot of temperature and chirping, it seems that as temperature increases, the rate of chirping also increases.
