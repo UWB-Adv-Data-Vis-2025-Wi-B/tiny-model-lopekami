@@ -65,4 +65,31 @@ species_lm <- lm(rate ~ temp + species, crickets)
 summary.lm(species_lm)
 ```
 
-This second model 
+This second model shows how the chirping rate increases with the temperature for two different species. This model shows that temp does remain as a strong predictor for chirping rate, but species plays an important role.
+
+## Interactions
+
+```{r species historgram, echo = FALSE}
+ggplot(crickets, aes(x = rate, fill = species)) +
+  geom_histogram(position = 'identity', alpha = 0.7, bins = 8) + 
+  ggtitle("Distribution of the chirp rate of crickets") +
+  xlab('Chirp rate (per min.)')
+```
+
+This graph shows that each species occupy different temp zone/ranges.
+
+```{r interactions, echo= FALSE}
+ggplot(crickets, aes(x = temp, y = rate, color = species)) +
+  geom_point() + 
+  geom_smooth(method = 'lm') +
+  ggtitle("Plot of temperature and chirp rate for two species of crickets") +
+  ylab('Chirp rate (per min.)') +
+  xlab('Temperature (Celsius)')
+  
+species_x_temp_lm <- lm(rate ~ temp + species + temp:species, crickets) 
+summary.lm(species_x_temp_lm)
+
+anova(species_lm, species_x_temp_lm)
+```
+
+I have checked for interactions but decided to stay with the awesome species model.
