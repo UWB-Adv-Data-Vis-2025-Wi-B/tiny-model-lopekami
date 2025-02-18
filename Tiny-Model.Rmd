@@ -93,3 +93,20 @@ anova(species_lm, species_x_temp_lm)
 ```
 
 I have checked for interactions but decided to stay with the awesome species model.
+
+## Visualizing and Modeling Diamond Prices
+
+```{r diamonds, echo=FALSE}
+ggplot(diamonds, aes(x = carat, y = price, color = cut)) +
+  geom_point(alpha = 0.5) + 
+  geom_smooth(method = 'lm', se = FALSE) +
+  ggtitle("Plot of carat and price for different cuts of diamonds") +
+  ylab('Price (USD)') +
+  xlab('Carat')
+
+cut_x_carat_lm <- lm(price ~ carat + cut + carat:cut, data = diamonds) 
+
+summary.lm(cut_x_carat_lm)
+```
+
+This is the one I made, though, it does need some refinements 
